@@ -24,7 +24,7 @@ class C7Decrypt
     r = ""
     pw_bytes = pw.scan(/../)
     vt_index = pw_bytes.first.hex - 1
-    pw.scan(/../).each_with_index do |byte,i|
+    pw_bytes.each_with_index do |byte,i|
       r += (byte.hex^VT_TABLE[(i + vt_index) % 53]).chr  
     end
     return r.slice(1..-1)
