@@ -1,0 +1,4 @@
+username test password 7 0822455D0A16
+    username test password 7 0822455D0A16        
+enable password 7 060506324F41
+        enable password 7 060506324F41
