@@ -8,7 +8,7 @@ http://mccltd.net/blog/?p=1034 ("Deobfuscating Cisco Type 7 Passwords")
 
 Example Usage via IRB:
 
->> require 'c7decrypt'
+`>> require 'c7decrypt'
 => true
 >> c7d = C7Decrypt.new()
 => #<C7Decrypt:0x131d888>
@@ -25,4 +25,4 @@ Example Usage via IRB:
 >> encrypted_hashes = ["060506324F41", "0822455D0A16"]
 => ["060506324F41", "0822455D0A16"]
 >> c7d.decrypt_array(encrypted_hashes)
-=> ["cisco", "cisco"]
+=> ["cisco", "cisco"]`
