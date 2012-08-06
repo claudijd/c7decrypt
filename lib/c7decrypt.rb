@@ -27,7 +27,7 @@ class C7Decrypt
     pw_bytes.each_with_index do |byte,i|
       r += (byte.hex^VT_TABLE[(i + vt_index) % 53]).chr  
     end
-    return r.slice(1..-1)
+    return r.slice(1..-1).rstrip
   end
 
   # A helper method to decrypt an arracy of Cisco Type-7 Encrypted Strings
@@ -48,10 +48,28 @@ class C7Decrypt
     pw_array = []
     f = File.open(file, 'r')
     f.each do |line|
-      pw_array << line.scan(/enable password 7 ([a-zA-Z0-9]+)/)
-      pw_array << line.scan(/username [a-zA-Z0-9]+ password 7 ([a-zA-Z0-9]+)/)
+      pw_array << type_7_matches(line)
     end
-    decrypt_array(pw_array.flatten!)
+    decrypt_array(pw_array.flatten)
+  end
+
+  # This method scans a config line for encrypted type-7 passwords and returns an array of results
+  # @param [String] a line with potential encrypted type-7 passwords
+  # @return [Array>String] an array of Cisco type-7 encrypted Strings
+  def type_7_matches(string)
+    matches = []
+
+    regexes = [
+      /enable password 7 ([a-zA-Z0-9]+)/,
+      /username [a-zA-Z0-9]+ password 7 ([a-zA-Z0-9]+)/,
+      /password 7 ([a-zA-Z0-9]+)/
+    ]
+
+    regexes.each do |regex|
+      matches << string.scan(regex)
+    end
+
+    matches.flatten.uniq
   end
 
   # A short-hand version of the descrypt method
