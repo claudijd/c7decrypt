@@ -3,6 +3,7 @@ require 'rubygems'
 require 'rake'
 require 'rdoc/task'
 require 'rubygems/package_task'
+require 'rspec'
 require 'rspec/core'
 require 'rspec/core/rake_task'
 
