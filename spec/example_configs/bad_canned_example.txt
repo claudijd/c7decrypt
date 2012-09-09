@@ -1,0 +1,13 @@
+# Removed "7"
+username password 0822455D0A16
+# Removed password
+    username password 7
+# changed password to pword         
+enable pword 7 060506324F41
+# changed hash to something weird, but still expect this to "hit"
+        enable password 7 abc123
+R3(config)#do show run | sec vty
+line vty 0 4
+# again changed hash to something weird, expect this to "hit" but it doesn't ... 
+password 7 /etc/passwd
+login
