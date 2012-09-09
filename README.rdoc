@@ -26,3 +26,7 @@ Example Usage via IRB:
         => ["060506324F41", "0822455D0A16"]
         >> c7d.decrypt_array(encrypted_hashes)
         => ["cisco", "cisco"]
+
+More friendly/pretty details here...
+
+http://claudijd.github.com/c7decrypt/
