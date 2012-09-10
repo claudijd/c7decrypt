@@ -30,3 +30,5 @@ Example Usage via IRB:
 More friendly/pretty details here...
 
 http://claudijd.github.com/c7decrypt/
+
+[![Build Status](https://secure.travis-ci.org/claudijd/c7decrypt.png)](http://travis-ci.org/claudijd/c7decrypt)
