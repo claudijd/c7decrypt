@@ -1,34 +1,41 @@
-# This is a ruby script to emulate the functionality originally seen in 
-#  cdecrypt.pl (See README.md)
-#
-# Author: Jonathan Claudius (@claudijd)
-#
-# Usage: ruby ./bin/cdecrypt.rb <cisco_type_7_hash|cisco_config_file>
-
 require '../lib/c7decrypt'
+require 'optparse'
+require 'ostruct'
 
-#Throw Usage Info
-def usage 
-  puts "Usage: ruby ./bin/cdecrypt.rb <cisco_type_7_hash|cisco_config_file>"
-  puts "Example #1: ruby ./bin/cdecrypt.rb 04480E051A33490E"
-  puts "Example #2: ruby ./bin/cdecrypt.rb ./spec/example_configs/simple_canned_example.txt"
-end
+options = OpenStruct.new
+options.string = nil
+options.file = nil
 
-#Make sure we only get one argument
-if !ARGV.size == 1
-  usage()
-  exit
-end
+OptionParser.new do |opts|
+  opts.banner = "Usage: cdecrypt.rb [options] [hash/file]"
 
-#Get a instance of C7Decrypt to use
+  opts.on("-s", "--string [HASH]", "A single encrypted hash string") do |v|
+    options.string = v
+  end
+
+  opts.on("-f", "--file [FILE]", "A file containing multiple hashes") do |v|
+    options.file = v
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts ""
+    puts opts
+    puts ""
+    puts "Example: ruby cdecrypt.rb -s 04480E051A33490E"
+    puts "Example: ruby cdecrypt.rb -f ../spec/example_configs/simple_canned_example.txt"
+    puts ""
+    exit
+  end
+end.parse!
+
 c7d = C7Decrypt.new()
 
-#Check to see if the arg is file, if so, process it, 
-# if not, treat it as a single hash
-if File.exists?(ARGV[0])
-  c7d.decrypt_config(ARGV[0]).each do |pw|
-    puts pw
-  end
-else
-  puts c7d.decrypt(ARGV[0])
+if options.string
+  puts c7d.decrypt(options.string)  
+end
+
+if options.file &&
+   File.exists?(options.file)
+
+  c7d.decrypt_config(options.file).each {|pw| puts pw }
 end
