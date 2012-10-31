@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/claudijd/c7decrypt.png)](http://travis-ci.org/claudijd/c7decrypt)
 
-C7Decrypt allows you to decrypt passwords which are encrypted using Cisco's Type-7 encoding scheme (aka: a Vigenere Cipher).  These "hashes" are used for user password storage, enable password storage and VTY line storage and can easily be decoded using C7Decrypt.
+A Ruby-based implementation of a Cisco Type-7 Password Decrypter
 
 Still interested in what this code is all about?
 
