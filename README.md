@@ -7,7 +7,7 @@ A Ruby-based implementation of a Cisco Type-7 Password Decrypter
 ## Key Benefits
 
 - **Written in Ruby** - First and only Cisco Type-7 implementation in Ruby that I know of.
-- **Minimal/No Dependancie** - Uses native Ruby to do it's work, no heavy dependancies.
+- **Minimal/No Dependancies** - Uses native Ruby to do it's work, no heavy dependancies.
 - **Not Just a Script** - Implementation is portable for use in another project or for automation of tasks.
 - **Simple** - It's a pretty small project so the interfaces are simple and easy to use.
 
