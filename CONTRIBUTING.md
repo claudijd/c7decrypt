@@ -8,7 +8,7 @@ us to give feedback, help you find whatever problem you have and fix it.
 ## Issues
 
 If you have questions of any kind, or are unsure of how something works, please
-[create an issue][tracker].
+[create an issue](https://github.com/claudijd/c7decrypt/issues/new).
 
 Please try to answer the following questions in your issue:
 
