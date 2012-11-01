@@ -66,6 +66,6 @@ To checkout the current build status for these rubies, click the [here](https://
 
 This code was inspired by Daren Matthew's cdecrypt.pl tool, which performs Cisco Type-7 decrypt operations in Perl.
 
-Daren's blog post can be found here:
+Daren's tool can be found here in a blog post he wrote a while back:
 
 [Deobfuscating Cisco Type 7 Passwords](http://mccltd.net/blog/?p=1034)
