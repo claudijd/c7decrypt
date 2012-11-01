@@ -50,8 +50,22 @@ Decrypt Array of Cisco Type-7 Hashes
 => ["cisco", "cisco"]
 ```
 
-Still interested in what this code is all about?
+## Rubies Supported
 
-Check out the c7decrypt GitHub Page here:
+This project is integrated with [travis-ci](http://about.travis-ci.org/) and is regularly tested to work with the following rubies:
 
-http://claudijd.github.com/c7decrypt/
+* 1.9.3
+* 1.9.2
+* ruby-head
+* jruby-19mode
+* jruby-head
+
+To checkout the current build status for these rubies, click the [here](https://travis-ci.org/#!/claudijd/c7decrypt).
+
+## Credits
+
+This code was inspired by Daren Matthew's blog post and his cdecrypt.pl tool, which performs Cisco Type-7 decrypt operations in Perl.
+
+Daren's blog post and code can be found here:
+
+[Deobfuscating Cisco Type 7 Passwords](http://mccltd.net/blog/?p=1034)
