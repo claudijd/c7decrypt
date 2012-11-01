@@ -13,6 +13,20 @@ A Ruby-based implementation of a Cisco Type-7 Password Decrypter
 - **Not Just a Script** - Implementation is portable for use in another project or for automation of tasks.
 - **Simple** - It's a pretty small project so the interfaces are simple and easy to use.
 
+## Setup
+
+To install, type
+
+```bash
+gem install c7decrypt
+```
+
+To use, just require the gem
+
+```ruby
+require 'c7decrypt'
+```
+
 Still interested in what this code is all about?
 
 Check out the c7decrypt GitHub Page here:
