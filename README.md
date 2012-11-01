@@ -62,6 +62,10 @@ This project is integrated with [travis-ci](http://about.travis-ci.org/) and is 
 
 To checkout the current build status for these rubies, click the [here](https://travis-ci.org/#!/claudijd/c7decrypt).
 
+## Contributing
+
+If you're interesting contributing to this project, please see [CONTRIBUTING.md](https://github.com/claudijd/c7decrypt/blob/master/CONTRIBUTING.md)
+
 ## Credits
 
 This code was inspired by Daren Matthew's cdecrypt.pl tool, which performs Cisco Type-7 decrypt operations in Perl.
