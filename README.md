@@ -29,16 +29,23 @@ require 'c7decrypt'
 
 ## Example Usage(s)
 
+Get an instance of C7Decrypt
+
+```ruby
+>> cd = C7Decrypt.new()
+=> #<C7Decrypt:0x11b1700>
+```
+
 Decrypt A Single Cisco Type-7 Hash
 
 ```ruby
->> C7Decrypt.decrypt("060506324F41")
+>> cd.decrypt("060506324F41")
 => "cisco"
 ```
 
 Decrypt Cisco Type-7 Hashes from Config
 ```ruby
->> C7Decrypt.decrypt_config("cisco_config.txt")
+>> cd.decrypt_config("cisco_config.txt")
 => ["cisco", "Password1", "admin"]
 ```
 
@@ -46,7 +53,7 @@ Decrypt Array of Cisco Type-7 Hashes
 ```ruby
 >> encrypted_hashes = ["060506324F41", "0822455D0A16"]
 => ["060506324F41", "0822455D0A16"]
->> C7Decrypt.decrypt_array(encrypted_hashes)
+>> cd.decrypt_array(encrypted_hashes)
 => ["cisco", "cisco"]
 ```
 
