@@ -1,8 +1,8 @@
 Gem::Specification.new do |s|
   s.name = 'c7decrypt'
-  s.version = '0.0.5'
+  s.version = '0.0.6'
   s.authors = ["Jonathan Claudius"]
-  s.date = '2012-09-07'
+  s.date = '2012-11-01'
   s.email = 'claudijd@yahoo.com'
   s.platform = Gem::Platform::RUBY
   s.files = ["lib/c7decrypt.rb"]
