@@ -15,8 +15,8 @@ desc "Run all specs in spec directory"
 RSpec::Core::RakeTask.new(:spec)
 
 def clean_up
-  Dir.glob("*.gem").each { |file| File.unlink(file) }
-  Dir.glob("*.lock").each { |file| File.unlink(file) }  
+  Dir.glob("*.gem").each { |f| File.unlink(f) }
+  Dir.glob("*.lock").each { |f| File.unlink(f) }  
 end
 
 desc "Build the gem"
@@ -26,7 +26,7 @@ end
 
 desc "Publish the gem"
 task :publish do
-  puts `gem push c7decrypt.gemspec`
+  Dir.glob("*.gem").each { |f| puts `gem push #{f}`} 
 end
 
 desc "Perform an end-to-end release of the gem"
