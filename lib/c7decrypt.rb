@@ -17,6 +17,13 @@ class C7Decrypt
     0x32, 0x35, 0x34, 0x6b, 0x3b, 0x66, 0x67, 0x38, 0x37
   ]
 
+  # Regexes for extracting hashes from configs
+  TYPE_7_REGEXES = [
+    /enable password 7 ([a-zA-Z0-9]+)/,
+    /username [a-zA-Z0-9]+ password 7 ([a-zA-Z0-9]+)/,
+    /password 7 ([a-zA-Z0-9]+)/
+  ]
+
   # The Decryption Method for Cisco Type-7 Encrypted Strings
   # @param [String] the Cisco Type-7 Encrypted String
   # @return [String] the Decrypted String
@@ -34,42 +41,22 @@ class C7Decrypt
   # @param [Array>String] an array of Cisco Type-7 Encrypted Strings
   # @return [Array>String] an array of Decrypted Strings
   def decrypt_array(pw_array)
-    r = []
-    pw_array.each do |pw|
-      r << decrypt(pw)
-    end
-    return r
+    pw_array.collect {|pw| decrypt(pw)}
   end
 
   # This method scans a raw config file for type 7 passwords and decrypts them
   # @param [String] a string of the config file path that contains Cisco Type-7 Encrypted Strings
   # @return [Array>String] an array of Decrypted Strings
   def decrypt_config(file)
-    pw_array = []
-    f = File.open(file, 'r')
-    f.each do |line|
-      pw_array << type_7_matches(line)
-    end
-    decrypt_array(pw_array.flatten)
+    f = File.open(file, 'r').to_a
+    decrypt_array(f.collect {|line| type_7_matches(line)}.flatten)
   end
 
   # This method scans a config line for encrypted type-7 passwords and returns an array of results
   # @param [String] a line with potential encrypted type-7 passwords
   # @return [Array>String] an array of Cisco type-7 encrypted Strings
   def type_7_matches(string)
-    matches = []
-
-    regexes = [
-      /enable password 7 ([a-zA-Z0-9]+)/,
-      /username [a-zA-Z0-9]+ password 7 ([a-zA-Z0-9]+)/,
-      /password 7 ([a-zA-Z0-9]+)/
-    ]
-
-    regexes.each do |regex|
-      matches << string.scan(regex)
-    end
-
-    matches.flatten.uniq
+    TYPE_7_REGEXES.collect {|regex| string.scan(regex)}.flatten.uniq
   end
 
   # A short-hand version of the descrypt method
