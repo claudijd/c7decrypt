@@ -21,7 +21,7 @@ To install, type
 gem install c7decrypt
 ```
 
-To use, just require the gem
+To use, just require
 
 ```ruby
 require 'c7decrypt'
