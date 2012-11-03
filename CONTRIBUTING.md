@@ -27,7 +27,7 @@ inclusion, but sending a pull request is much more awesome.
 
 If you want your pull requests to be accepted, please follow the following guidelines:
 
-- **Add tests!** Your patch won't be accepted (or will be delayed) if it doesn't have tests.
+- [**Add tests!**](http://rspec.info/) Your patch won't be accepted (or will be delayed) if it doesn't have tests.
 
 - **Document any change in behaviour**. Make sure the README and any other
   relevant documentation are kept up-to-date.
