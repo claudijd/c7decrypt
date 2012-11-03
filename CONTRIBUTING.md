@@ -29,7 +29,7 @@ If you want your pull requests to be accepted, please follow the following guide
 
 - [**Add tests!**](http://rspec.info/) Your patch won't be accepted (or will be delayed) if it doesn't have tests.
 
-- **Document any change in behaviour**. Make sure the README and any other
+- [**Document any change in behaviour**](http://yardoc.org/) Make sure the README and any other
   relevant documentation are kept up-to-date.
 
 - **Create topic branches**. Don't ask us to pull from your master branch.
