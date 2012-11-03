@@ -34,14 +34,14 @@ If you want your pull requests to be accepted, please follow the following guide
 
 - [**Create topic branches**](https://github.com/dchelimsky/rspec/wiki/Topic-Branches) Don't ask us to pull from your master branch.
 
-- **One pull request per feature**. If you want to do more than one thing, send
+- [**One pull request per feature**](https://help.github.com/articles/using-pull-requests) If you want to do more than one thing, send
   multiple pull requests.
 
-- **Send coherent history**. Make sure each individual commit in your pull
+- [**Send coherent history**](http://stackoverflow.com/questions/6934752/git-combining-multiple-commits-before-pushing) Make sure each individual commit in your pull
   request is meaningful. If you had to make multiple intermediate commits while
   developing, please squash them before sending them to us.
 
-- **Follow coding conventions**. The standard Ruby stuff, two spaces indent,
+- [**Follow coding conventions**](https://github.com/styleguide/ruby) The standard Ruby stuff, two spaces indent,
   don't omit parens unless you have a good reason.
 
 Thank you so much for contributing!
