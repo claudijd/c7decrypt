@@ -32,7 +32,7 @@ If you want your pull requests to be accepted, please follow the following guide
 - [**Document any change in behaviour**](http://yardoc.org/) Make sure the README and any other
   relevant documentation are kept up-to-date.
 
-- **Create topic branches**. Don't ask us to pull from your master branch.
+- [**Create topic branches**](https://github.com/dchelimsky/rspec/wiki/Topic-Branches) Don't ask us to pull from your master branch.
 
 - **One pull request per feature**. If you want to do more than one thing, send
   multiple pull requests.
