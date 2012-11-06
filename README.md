@@ -50,6 +50,12 @@ Decrypt Array of Encrypted Passwords
 => ["cisco", "cisco"]
 ```
 
+Decrypt Encrypted Passwords from Config
+```ruby
+>> cd.decrypt_config("cisco_config.txt")
+=> ["cisco", "Password1", "admin"]
+```
+
 Encrypt A Single Plaintext Password
 ```ruby
 >> cd.encrypt("cisco")
