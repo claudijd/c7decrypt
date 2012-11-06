@@ -4,6 +4,18 @@ describe C7Decrypt do
 
   before(:each) do
     @c7d = C7Decrypt.new()
+    @known_values = [
+      {:pt => "cisco", :seed => 2, :ph => "02050D480809"},
+      {:pt => "cisco", :seed => 3, :ph => "030752180500"},
+      {:pt => "cisco", :seed => 4, :ph => "045802150C2E"},
+      {:pt => "cisco", :seed => 5, :ph => "05080F1C2243"}, 
+      {:pt => "cisco", :seed => 6, :ph => "060506324F41"},
+      {:pt => "cisco", :seed => 7, :ph => "070C285F4D06"},
+      {:pt => "cisco", :seed => 8, :ph => "0822455D0A16"},         
+      {:pt => "cisco", :seed => 9, :ph => "094F471A1A0A"},
+      {:pt => "password", :seed => 9, :ph => "095C4F1A0A1218000F"},
+      {:pt => "password", :seed => 4, :ph => "044B0A151C36435C0D"}
+    ]
   end
 
   context "when initializing the class" do 
@@ -16,7 +28,7 @@ describe C7Decrypt do
       @encrypted_hash = "060506324F41"
       @decrypted_hash = @c7d.decrypt(@encrypted_hash)
     end
-
+  
     subject{@decrypted_hash}
     its(:class) {should == ::String}
     it {should == "cisco"}
@@ -27,7 +39,7 @@ describe C7Decrypt do
       @encrypted_hash = "060506324F41"
       @decrypted_hash = @c7d.d(@encrypted_hash)
     end
-
+  
     subject{@decrypted_hash}
     its(:class) {should == ::String}
     it {should == "cisco"}
@@ -41,7 +53,7 @@ describe C7Decrypt do
       ]
       @decrypted_hashes = @c7d.decrypt_array(@encrypted_hashes)
     end
-
+  
     subject{@decrypted_hashes}
     its(:class) {should == ::Array}
     its(:first) {should == "cisco"}
@@ -70,7 +82,7 @@ describe C7Decrypt do
       @config_file = "./spec/example_configs/simple_canned_example.txt"
       @decrypted_hashes = @c7d.decrypt_config(@config_file)
     end
-
+  
     subject{@decrypted_hashes}
     its(:class) {should == ::Array}
     its(:size) {should == 5}
@@ -88,7 +100,7 @@ describe C7Decrypt do
       @config_file = "./spec/example_configs/simple_canned_example.txt"
       @decrypted_hashes = @c7d.d_c(@config_file)
     end
-
+  
     subject{@decrypted_hashes}
     its(:class) {should == ::Array}
     its(:size) {should == 5}
@@ -103,25 +115,15 @@ describe C7Decrypt do
 
   context "when decrypting known Cisco Type-7 known value matches" do 
     before(:each) do
-      @known_values = {
-        "046E1803362E595C260E0B240619050A2D" => "UseYourOwnString",
-        "060506324F41" => "cisco",
-        "0822455D0A16" => "cisco",
-        "04480E051A33490E" => "secure",
-        "095C4F1A0A1218000F" => "password",
-        "07362E590E1B1C041B1E124C0A2F2E206832752E1A01134D" => "You really need a life.",
-        "02050D480809" => "cisco",
-        "044B0A151C36435C0D" => "password",
-        "05080F1C2243" => "cisco",
-        "094F471A1A0A" => "cisco"
-      }
-      @decrypted_hashes = @c7d.decrypt_array(@known_values.keys)
+      @decrypted_hashes = @c7d.decrypt_array(
+                            @known_values.map {|known_value| known_value[:ph]}
+                          )
     end
 
     subject{@decrypted_hashes}
     its(:class) {should == ::Array}
     its(:size) {should == @known_values.size}
-    it {should == @known_values.values}
+    it {should == @known_values.map {|known_value| known_value[:pt]}}
   end
 
   context "when matchings known Cisco Type-7 known config line matches" do 
@@ -144,5 +146,102 @@ describe C7Decrypt do
     its(:size) {should == @known_config_lines.size}
     it {should == @known_config_lines.values}
   end
+
+  context "when encrypting single Cisco Type-7 hash using longhand" do 
+    before(:each) do
+      @plaintext_hash = "cisco"
+      @encrypted_hash = @c7d.encrypt(@plaintext_hash)
+    end
+
+    subject{@encrypted_hash}
+    its(:class) {should == ::String}
+    it {should == "02050D480809"}
+  end
+
+  context "when encrypting single Cisco Type-7 hash with an alternate seed value" do 
+    before(:each) do
+      @plaintext_hash = "cisco"
+      @seed = 3
+      @encrypted_hash = @c7d.encrypt(@plaintext_hash, @seed)
+    end
+
+    subject{@encrypted_hash}
+    its(:class) {should == ::String}
+    it {should == "030752180500"}
+
+    it "should decrypt back to the original plaintext hash" do
+      @c7d.decrypt(@encrypted_hash).should == @plaintext_hash
+    end
+  end
+
+  context "when encrypting multiple plaintext passwords with alternate seed values" do 
+    before(:each) do
+      @plaintext_hash = "cisco"
+      @seeds = 0..9
+      @encrypted_hashes = @seeds.map {|seed| @c7d.encrypt(@plaintext_hash, seed)}
+    end
+
+    subject{@encrypted_hashes}
+    its(:class) {should == ::Array}
+
+    it "should decrypt back to the original plaintext hashes" do
+      @encrypted_hashes.each do |encrypted_hash|
+        @c7d.decrypt(encrypted_hash).should == @plaintext_hash
+      end
+    end
+  end
+
+  context "when encrypting known value matches individually" do 
+    before(:each) do
+      @encrypted_hashes = []
+      @known_values.each do |known_value|
+        @encrypted_hashes << @c7d.encrypt(known_value[:pt], known_value[:seed])
+      end
+    end
+
+    subject{@encrypted_hashes}
+    its(:class) {should == ::Array}
+    its(:size) {should == @known_values.size}
+    it {should == @known_values.map {|known_value| known_value[:ph]}}
+  end
+
+  context "when encrypting known value matches individually using short hand" do 
+    before(:each) do
+      @encrypted_hashes = []
+      @known_values.each do |known_value|
+        @encrypted_hashes << @c7d.e(known_value[:pt], known_value[:seed])
+      end
+    end
+
+    subject{@encrypted_hashes}
+    its(:class) {should == ::Array}
+    its(:size) {should == @known_values.size}
+    it {should == @known_values.map {|known_value| known_value[:ph]}}
+  end
+
+  context "when encrypting known value matches individually as an array" do 
+    before(:each) do
+      @plaintext_passwords = @known_values.map {|known_value| known_value[:pt]}.uniq
+      @encrypted_passwords = @c7d.encrypt_array(@plaintext_passwords)
+    end
+
+    subject{@encrypted_passwords}
+    its(:class) {should == ::Array}
+    its(:size) {should == @plaintext_passwords.size}
+    it {should == @plaintext_passwords.map {|plaintext_password| @c7d.encrypt(plaintext_password)}}
+  end
+
+  context "when encrypting known value matches individually as an array using short hand" do 
+    before(:each) do
+      @plaintext_passwords = @known_values.map {|known_value| known_value[:pt]}.uniq
+      @encrypted_passwords = @c7d.e_a(@plaintext_passwords)
+    end
+
+    subject{@encrypted_passwords}
+    its(:class) {should == ::Array}
+    its(:size) {should == @plaintext_passwords.size}
+    it {should == @plaintext_passwords.map {|plaintext_password| @c7d.encrypt(plaintext_password)}}
+  end
+
 
 end

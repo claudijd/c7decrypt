@@ -32,9 +32,23 @@ class C7Decrypt
     pw_bytes = pw.scan(/../)
     vt_index = pw_bytes.first.hex - 1
     pw_bytes.each_with_index do |byte,i|
-      r += (byte.hex^VT_TABLE[(i + vt_index) % 53]).chr  
+      r += (byte.hex^VT_TABLE[(i + vt_index) % 53]).chr
     end
     return r.slice(1..-1).rstrip
+  end
+
+  # The Encryption Method for Cisco Type-7 Encrypted Strings
+  # @param [String] the plaintext password
+  # @param [String] the seed for the encryption used 
+  # @return [String] the encrypted password
+  def encrypt(plain_text, seed = 2)
+    etext = "%02d" % seed
+    pt_chars = plain_text.scan(/./)
+    pt_chars.each_with_index do |char,i|
+      tmp = char.ord ^ VT_TABLE[(i + seed)]
+      etext += ("%02X" % tmp)
+    end
+    return etext
   end
 
   # A helper method to decrypt an arracy of Cisco Type-7 Encrypted Strings
@@ -42,6 +56,13 @@ class C7Decrypt
   # @return [Array>String] an array of Decrypted Strings
   def decrypt_array(pw_array)
     pw_array.collect {|pw| decrypt(pw)}
+  end
+
+  # A helper method to encrypt an arracy of passwords
+  # @param [Array>String] an array of plain-text passwords
+  # @return [Array>String] an array of encrypted passwords
+  def encrypt_array(pt_array, seed = 2)
+    pt_array.collect {|pw| encrypt(pw, seed)}
   end
 
   # This method scans a raw config file for type 7 passwords and decrypts them
@@ -59,18 +80,32 @@ class C7Decrypt
     TYPE_7_REGEXES.collect {|regex| string.scan(regex)}.flatten.uniq
   end
 
-  # A short-hand version of the descrypt method
-  # @param [String] the Cisco Type-7 Encrypted String
-  # @return [String] the Decrypted String
+  # A short-hand version of the decrypt method
+  # @param [String] the password hash
+  # @return [String] the plaintest password
   def d(pw)
     decrypt(pw)
+  end
+
+  # A short-hand version of the encrypt method
+  # @param [String] the plaintext password
+  # @return [String] the password hash
+  def e(pt, seed = 2)
+    encrypt(pt, seed)
+  end
+
+  # A short-hand version of the descrypt_array method
+  # @param [Array>String] an array of password hashes
+  # @return [Array>String] an array of plaintext passwords
+  def d_a(pw_array)
+    decrypt_array(pw_array)
   end
 
   # A short-hand version of the descrypt_array method
   # @param [Array>String] an array of Cisco Type-7 Encrypted Strings
   # @return [Array>String] an array of Decrypted Strings
-  def d_a(pw_array)
-    decrypt_array(pw_array)
+  def e_a(pt_array, seed = 2)
+    encrypt_array(pt_array, seed)
   end
 
   # A short-hand version of the decrypt_config method
