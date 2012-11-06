@@ -36,25 +36,38 @@ Get an instance of C7Decrypt
 => #<C7Decrypt:0x11b1700>
 ```
 
-Decrypt A Single Cisco Type-7 Hash
-
+Decrypt A Single Encrypted Passwords
 ```ruby
 >> cd.decrypt("060506324F41")
 => "cisco"
 ```
 
-Decrypt Cisco Type-7 Hashes from Config
-```ruby
->> cd.decrypt_config("cisco_config.txt")
-=> ["cisco", "Password1", "admin"]
-```
-
-Decrypt Array of Cisco Type-7 Hashes
+Decrypt Array of Encrypted Passwords
 ```ruby
 >> encrypted_hashes = ["060506324F41", "0822455D0A16"]
 => ["060506324F41", "0822455D0A16"]
 >> cd.decrypt_array(encrypted_hashes)
 => ["cisco", "cisco"]
+```
+
+Encrypt A Single Plaintext Password
+```ruby
+>> cd.encrypt("cisco")
+=> "02050D480809"
+```
+
+Encrypt A Single Plaintext Password w/ Explicit Seed
+```ruby
+>> cd.encrypt("cisco", 6)
+=> "060506324F41"
+```
+
+Encrypt An Array of Plaintext Passwords
+```ruby
+>> passwords = ["cisco", "password"]
+=> ["cisco", "password"]
+>> cd.encrypt_array(passwords)
+=> ["02050D480809", "021605481811003348"]
 ```
 
 ## Rubies Supported
