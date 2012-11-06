@@ -94,8 +94,14 @@ If you're interesting contributing to this project, please see [CONTRIBUTING.md]
 
 ## Credits
 
-This code was inspired by Daren Matthew's cdecrypt.pl tool, which performs Cisco Type-7 decrypt operations in Perl.
+The decryption code in this project was inspired by Daren Matthew's cdecrypt.pl tool, which performs Cisco Type-7 decrypt operations in Perl.
 
 Daren's tool can be found here in a blog post he wrote a while back:
 
 [Deobfuscating Cisco Type 7 Passwords](http://mccltd.net/blog/?p=1034)
+
+The encryption code in this project was inspired by a blog post at Moonie.com, which performs Cisco Type-7 decryptions and encryption operations in Perl.
+
+The moonie.com blog post, which contains the original perl source can be found here:
+
+[Cisco (type 7) password decryption and encryption with Perl](http://www.m00nie.com/2011/09/cisco-type-7-password-decryption-and-encryption-with-perl/)
