@@ -12,6 +12,7 @@ A Ruby-based implementation of a Cisco Type-7 Password Encryptor/Decryptor
 - **Minimal/No Dependancies** - Uses native Ruby to do it's work, no heavy dependancies.
 - **Not Just a Script** - Implementation is portable for use in another project or for automation of tasks.
 - **Simple** - It's a pretty small project so the interfaces are simple and easy to use.
+- **Encrypt & Decrypt** - Supports both encryption (with seed control) and decryption operations.
 
 ## Setup
 
