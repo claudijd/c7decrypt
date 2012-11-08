@@ -80,39 +80,11 @@ class C7Decrypt
     TYPE_7_REGEXES.collect {|regex| string.scan(regex)}.flatten.uniq
   end
 
-  # A short-hand version of the decrypt method
-  # @param [String] the password hash
-  # @return [String] the plaintest password
-  def d(pw)
-    decrypt(pw)
-  end
-
-  # A short-hand version of the encrypt method
-  # @param [String] the plaintext password
-  # @return [String] the password hash
-  def e(pt, seed = 2)
-    encrypt(pt, seed)
-  end
-
-  # A short-hand version of the descrypt_array method
-  # @param [Array>String] an array of password hashes
-  # @return [Array>String] an array of plaintext passwords
-  def d_a(pw_array)
-    decrypt_array(pw_array)
-  end
-
-  # A short-hand version of the descrypt_array method
-  # @param [Array>String] an array of Cisco Type-7 Encrypted Strings
-  # @return [Array>String] an array of Decrypted Strings
-  def e_a(pt_array, seed = 2)
-    encrypt_array(pt_array, seed)
-  end
-
-  # A short-hand version of the decrypt_config method
-  # @param [String] a string of the config file path that contains Cisco Type-7 Encrypted Strings
-  # @return [Array>String] an array of Decrypted Strings
-  def d_c(file)
-    decrypt_config(file)
-  end
+  #Definition of short-hand methods for the lazy
+  alias :d :decrypt
+  alias :e :encrypt
+  alias :d_a :decrypt_array
+  alias :e_a :encrypt_array
+  alias :d_c :decrypt_config
 
 end
