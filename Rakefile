@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 require 'rubygems'
 require 'rake'
-require 'rdoc/task'
 require 'rubygems/package_task'
 require 'rspec'
 require 'rspec/core'

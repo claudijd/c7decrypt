@@ -24,6 +24,17 @@ class C7Decrypt
     /password 7 ([a-zA-Z0-9]+)/
   ]
 
+  def initialize()
+    @legacy_mode = legacy_mode?
+  end
+
+  # Detect whether we're running in legacy mode or not
+  # Ruby 1.8.x uses [0] for ordinal conversion but does not .ord
+  # Ruby 1.9.x implements .ord but does not support [0] ordinal conversion
+  def legacy_mode?
+    return true if RUBY_VERSION.match(/1\.8\.[67]/)
+  end
+
   # The Decryption Method for Cisco Type-7 Encrypted Strings
   # @param [String] the Cisco Type-7 Encrypted String
   # @return [String] the Decrypted String
@@ -45,7 +56,12 @@ class C7Decrypt
     etext = "%02d" % seed
     pt_chars = plain_text.scan(/./)
     pt_chars.each_with_index do |char,i|
-      tmp = char.ord ^ VT_TABLE[(i + seed)]
+      tmp = nil
+      if @legacy_mode
+        tmp = char[0] ^ VT_TABLE[(i + seed)]
+      else
+        tmp = char.ord ^ VT_TABLE[(i + seed)]        
+      end
       etext += ("%02X" % tmp)
     end
     return etext
