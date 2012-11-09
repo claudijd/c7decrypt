@@ -92,7 +92,7 @@ This project is integrated with [travis-ci](http://about.travis-ci.org/) and is 
 * [rbx-18mode](http://rubini.us/)
 * [ree](http://www.rubyenterpriseedition.com/)
 
-To checkout the current build status for these rubies, click the [here](https://travis-ci.org/#!/claudijd/c7decrypt).
+To checkout the current build status for these rubies, click [here](https://travis-ci.org/#!/claudijd/c7decrypt).
 
 ## Contributing
 
