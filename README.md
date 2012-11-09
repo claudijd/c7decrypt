@@ -81,11 +81,16 @@ Encrypt An Array of Plaintext Passwords
 
 This project is integrated with [travis-ci](http://about.travis-ci.org/) and is regularly tested to work with the following rubies:
 
-* 1.9.3
-* 1.9.2
-* ruby-head
-* jruby-19mode
-* jruby-head
+* [1.9.3](https://github.com/ruby/ruby/tree/ruby_1_9_3)
+* [1.9.2](https://github.com/ruby/ruby/tree/ruby_1_9_2)
+* [1.8.7](https://github.com/ruby/ruby/tree/ruby_1_8_7)
+* [ruby-head](https://github.com/ruby/ruby)
+* [jruby-head](http://jruby.org/)
+* [jruby-19mode](http://jruby.org/)
+* [jruby-18mode](http://jruby.org/)
+* [rbx-19mode](http://rubini.us/)
+* [rbx-18mode](http://rubini.us/)
+* [ree](http://www.rubyenterpriseedition.com/)
 
 To checkout the current build status for these rubies, click the [here](https://travis-ci.org/#!/claudijd/c7decrypt).
 
