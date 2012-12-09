@@ -98,7 +98,7 @@ To checkout the current build status for these rubies, click [here](https://trav
 
 ## Contributing
 
-If you're interesting contributing to this project, please see [CONTRIBUTING.md](https://github.com/claudijd/c7decrypt/blob/master/CONTRIBUTING.md)
+If you're interested in contributing to this project, please see [CONTRIBUTING.md](https://github.com/claudijd/c7decrypt/blob/master/CONTRIBUTING.md)
 
 ## Credits
 
