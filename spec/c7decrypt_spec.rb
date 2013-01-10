@@ -126,6 +126,16 @@ describe C7Decrypt do
     it {should == @known_values.map {|known_value| known_value[:pt]}}
   end
 
+  context "when decrypting Cisco Type-7 with a seed greater than 9" do 
+    before(:each) do
+      @decrypt_hash = @c7d.decrypt("15000E010723382727")
+    end
+
+    subject{@decrypt_hash}
+    its(:class) {should == ::String}
+    it {should == "remcisco"}
+  end
+
   context "when matchings known Cisco Type-7 known config line matches" do 
     before(:each) do
       @encrypted_hashes = []
@@ -243,5 +253,27 @@ describe C7Decrypt do
     it {should == @plaintext_passwords.map {|plaintext_password| @c7d.encrypt(plaintext_password)}}
   end
 
+  context "when encrypting Cisco Type-7" do 
+    before(:each) do
+      @plaintext_hash = "remcisco"
+      @encrypted_hash = @c7d.encrypt(@plaintext_hash)
+    end
+
+    subject{@encrypted_hash}
+    its(:class) {should == ::String}
+    it {should == "02140156080F1C2243"}
+  end
+
+  context "when encrypting Cisco Type-7 with a seed of 15" do 
+    before(:each) do
+      @plaintext_hash = "remcisco"
+      @seed = 15
+      @encrypted_hash = @c7d.encrypt(@plaintext_hash, @seed)
+    end
+
+    subject{@encrypted_hash}
+    its(:class) {should == ::String}
+    it {should == "15000E010723382727"}
+  end
 
 end

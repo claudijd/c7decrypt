@@ -30,7 +30,7 @@ class C7Decrypt
   def decrypt(pw)
     r = ""
     pw_bytes = pw.scan(/../)
-    vt_index = pw_bytes.first.hex - 1
+    vt_index = pw_bytes.first.to_i - 1
     pw_bytes.each_with_index do |byte,i|
       r += (byte.hex^VT_TABLE[(i + vt_index) % 53]).chr
     end
@@ -46,7 +46,7 @@ class C7Decrypt
     pt_chars = plain_text.scan(/./)
     pt_chars.each_with_index do |char,i|
       tmp = nil
-      tmp = char.unpack('C')[0] ^ VT_TABLE[(i + seed)]
+      tmp = char.unpack('C')[0] ^ VT_TABLE[((i + seed) % 53)]
       etext += ("%02X" % tmp)
     end
     return etext
