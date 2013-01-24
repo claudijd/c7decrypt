@@ -81,6 +81,7 @@ Encrypt An Array of Plaintext Passwords
 
 This project is integrated with [travis-ci](http://about.travis-ci.org/) and is regularly tested to work with the following rubies:
 
+* 2.0.0
 * [1.9.3](https://github.com/ruby/ruby/tree/ruby_1_9_3)
 * [1.9.2](https://github.com/ruby/ruby/tree/ruby_1_9_2)
 * 1.9.1 - Tested outside of Travis-CI
