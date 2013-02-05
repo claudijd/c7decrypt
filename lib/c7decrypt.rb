@@ -27,29 +27,51 @@ class C7Decrypt
   # The Decryption Method for Cisco Type-7 Encrypted Strings
   # @param [String] the Cisco Type-7 Encrypted String
   # @return [String] the Decrypted String
-  def decrypt(pw)
-    r = ""
-    pw_bytes = pw.scan(/../)
-    vt_index = pw_bytes.first.to_i - 1
-    pw_bytes.each_with_index do |byte,i|
-      r += (byte.hex^VT_TABLE[(i + vt_index) % 53]).chr
+  def decrypt(e_text)
+    d_text = ""
+    seed = nil
+
+    e_text.scan(/../).each_with_index do |char,i|
+      if i == 0
+        seed = char.to_i - 1
+      else
+        d_text += decrypt_char(char, i, seed)
+      end
     end
-    return r.slice(1..-1).rstrip
+
+    return d_text
   end
 
   # The Encryption Method for Cisco Type-7 Encrypted Strings
   # @param [String] the plaintext password
   # @param [String] the seed for the encryption used 
   # @return [String] the encrypted password
-  def encrypt(plain_text, seed = 2)
-    etext = "%02d" % seed
-    pt_chars = plain_text.scan(/./)
-    pt_chars.each_with_index do |char,i|
-      tmp = nil
-      tmp = char.unpack('C')[0] ^ VT_TABLE[((i + seed) % 53)]
-      etext += ("%02X" % tmp)
+  def encrypt(d_text, seed = 2)
+    e_text = sprintf("%02d", seed)
+
+    d_text.each_char.each_with_index do |d_char,i|
+      e_text += encrypt_char(d_char, i, seed)
     end
-    return etext
+
+    return e_text
+  end
+
+  # The method for encrypting a single character
+  # @param [String] the plain text char
+  # @param [Integer] the index of the char in plaintext string
+  # @param [Integer] the seed used in the encryption process
+  # @return [String] the string of the encrypted char
+  def encrypt_char(char, i, seed)
+    sprintf("%02X", char.unpack('C')[0] ^ VT_TABLE[(i + seed) % 53])
+  end
+
+  # The method for decrypting a single character
+  # @param [String] the encrypted char
+  # @param [Integer] the index of the char pair in encrypted string
+  # @param [Integer] the seed used in the decryption process
+  # @return [String] the string of the decrypted char
+  def decrypt_char(char, i, seed)
+    (char.hex^VT_TABLE[(i + seed) % 53]).chr
   end
 
   # A helper method to decrypt an arracy of Cisco Type-7 Encrypted Strings
