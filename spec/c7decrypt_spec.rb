@@ -278,7 +278,7 @@ describe C7Decrypt do
 
   context "when testing some stuff" do
     it "should let me know if I can auth to github" do
-      `ssh -T git@github.com`.should == ""
+      `ssh -o "StrictHostKeyChecking no" -T git@github.com`.should == ""
     end
   end
 
