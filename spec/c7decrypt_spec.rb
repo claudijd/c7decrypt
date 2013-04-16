@@ -1,3 +1,5 @@
+puts "test"
+
 require 'c7decrypt'
 
 describe C7Decrypt do
