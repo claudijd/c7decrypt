@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/claudijd/c7decrypt.png)](http://travis-ci.org/claudijd/c7decrypt)
 [![Dependency Status](https://gemnasium.com/claudijd/c7decrypt.png)](https://gemnasium.com/claudijd/c7decrypt)
-[![Code Quality](https://codeclimate.com/badge.png)](https://codeclimate.com/github/claudijd/c7decrypt)
+[![Code Climate](https://codeclimate.com/github/claudijd/c7decrypt.png)](https://codeclimate.com/github/claudijd/c7decrypt)
 
 A Ruby-based implementation of a Cisco Type-7 Password Encryptor/Decryptor
 
