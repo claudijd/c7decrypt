@@ -106,7 +106,7 @@ If you are interested in contributing to this project, please see [CONTRIBUTING.
 **Sources of Inspiration for this Tool**
 
 - [**Daren Matthew**](http://mccltd.net/blog/?p=1034) - For his blog post on the subject aggregating tools and sources that perform the decryption/decoding logic.
-- [**m00nie**]((http://www.m00nie.com/2011/09/cisco-type-7-password-decryption-and-encryption-with-perl/) - For the blog post on the subject, the source code of type7tool.pl and it's encryption techniques.
+- [**m00nie**](http://www.m00nie.com/2011/09/cisco-type-7-password-decryption-and-encryption-with-perl/) - For the blog post on the subject, the source code of type7tool.pl and it's encryption techniques.
 
 **Application(s) that use this Tool**
 
