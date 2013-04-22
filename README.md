@@ -1,3 +1,5 @@
+![Cisco Logo](https://github.com/claudijd/c7decrypt/blob/master/images/cisco.jpeg?raw=true)
+
 # C7Decrypt
 
 [![Build Status](https://secure.travis-ci.org/claudijd/c7decrypt.png)](http://travis-ci.org/claudijd/c7decrypt)
