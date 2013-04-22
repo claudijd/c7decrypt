@@ -40,12 +40,14 @@ Get an instance of C7Decrypt
 ```
 
 Decrypt A Single Encrypted Passwords
+
 ```ruby
 >> cd.decrypt("060506324F41")
 => "cisco"
 ```
 
 Decrypt Array of Encrypted Passwords
+
 ```ruby
 >> encrypted_hashes = ["060506324F41", "0822455D0A16"]
 => ["060506324F41", "0822455D0A16"]
@@ -54,24 +56,28 @@ Decrypt Array of Encrypted Passwords
 ```
 
 Decrypt Encrypted Passwords from Config
+
 ```ruby
 >> cd.decrypt_config("cisco_config.txt")
 => ["cisco", "Password1", "admin"]
 ```
 
 Encrypt A Single Plaintext Password
+
 ```ruby
 >> cd.encrypt("cisco")
 => "02050D480809"
 ```
 
 Encrypt A Single Plaintext Password w/ Explicit Seed
+
 ```ruby
 >> cd.encrypt("cisco", 6)
 => "060506324F41"
 ```
 
 Encrypt An Array of Plaintext Passwords
+
 ```ruby
 >> passwords = ["cisco", "password"]
 => ["cisco", "password"]
