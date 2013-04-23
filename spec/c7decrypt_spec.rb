@@ -187,7 +187,7 @@ describe C7Decrypt do
   context "when encrypting multiple plaintext passwords with alternate seed values" do 
     before(:each) do
       @plaintext_hash = "cisco"
-      @seeds = 0..9
+      @seeds = 0..15
       @encrypted_hashes = @seeds.map {|seed| @c7d.encrypt(@plaintext_hash, seed)}
     end
 
@@ -274,6 +274,36 @@ describe C7Decrypt do
     subject{@encrypted_hash}
     its(:class) {should == ::String}
     it {should == "15000E010723382727"}
+  end
+
+  context "when trying to decrypt a hash with an invalid first character" do
+    it "should raise an InvalidFirstCharacter Exception" do
+      expect { @c7d.decrypt("AA000E010723382727") }.to raise_error(InvalidFirstCharacter)
+    end
+  end
+
+  context "when trying to decrypt a hash with an invalid character" do
+    it "should raise an InvalidFirstCharacter Exception" do
+      expect { @c7d.decrypt("06000**E010723382727") }.to raise_error(InvalidCharacter)
+    end
+  end
+  
+  context "when trying to decrypt a hash with an odd number of characters" do
+    it "should raise an InvalidFirstCharacter Exception" do
+      expect { @c7d.decrypt("06000E01723382727") }.to raise_error(OddNumberOfCharacters)
+    end
+  end
+
+  context "when trying to encrypt a hash with an invalid high encryption seed" do
+    it "should raise an InvalidFirstCharacter Exception" do
+      expect { @c7d.encrypt("bananas", 16) }.to raise_error(InvalidEncryptionSeed)
+    end
+  end
+
+  context "when trying to encrypt a hash with an invalid low encryption seed" do
+    it "should raise an InvalidFirstCharacter Exception" do
+      expect { @c7d.encrypt("bananas", -1) }.to raise_error(InvalidEncryptionSeed)
+    end
   end
 
 end
