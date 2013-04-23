@@ -1,11 +1,5 @@
-# A Ruby-based implementation of a Cisco Type-7 Password Decrypter
-#
-# Author: Jonathan Claudius (Twitter/GitHub: @claudijd)
-#
-# This code is based on Daren Matthew's cdecrypt.pl found here:
-#   http://mccltd.net/blog/?p=1034 ("Deobfuscating Cisco Type 7 Passwords")
+require_relative 'exceptions'
 
-#Class Implementation
 class C7Decrypt
 
   # Vigenere translation table (these are our key values for decryption)
@@ -19,15 +13,20 @@ class C7Decrypt
 
   # Regexes for extracting hashes from configs
   TYPE_7_REGEXES = [
-    /enable password 7 ([a-zA-Z0-9]+)/,
-    /username [a-zA-Z0-9]+ password 7 ([a-zA-Z0-9]+)/,
-    /password 7 ([a-zA-Z0-9]+)/
+    /enable password 7 ([A-Z0-9]+)/,
+    /username [A-Z0-9]+ password 7 ([A-Z0-9]+)/,
+    /password 7 ([A-Z0-9]+)/
   ]
 
   # The Decryption Method for Cisco Type-7 Encrypted Strings
   # @param [String] the Cisco Type-7 Encrypted String
+  # @raise [InvalidFirstCharacter, 
+  #         InvalidCharacter, 
+  #         OddNumberOfCharacters]
   # @return [String] the Decrypted String
   def decrypt(e_text)
+    check_type_7_errors(e_text)
+
     d_text = ""
     seed = nil
 
@@ -44,22 +43,30 @@ class C7Decrypt
 
   # The Encryption Method for Cisco Type-7 Encrypted Strings
   # @param [String] the plaintext password
-  # @param [String] the seed for the encryption used 
+  # @param [String] the seed for the encryption used
+  # @raise [InvalidEncryptionSeed,
+  #         InvalidFirstCharacter, 
+  #         InvalidCharacter, 
+  #         OddNumberOfCharacters]
   # @return [String] the encrypted password
   def encrypt(d_text, seed = 2)
+    check_seed(seed)
+  
     e_text = sprintf("%02d", seed)
 
     d_text.each_char.each_with_index do |d_char,i|
       e_text += encrypt_char(d_char, i, seed)
     end
 
+    check_type_7_errors(e_text)
+
     return e_text
   end
 
   # The method for encrypting a single character
   # @param [String] the plain text char
-  # @param [Integer] the index of the char in plaintext string
-  # @param [Integer] the seed used in the encryption process
+  # @param [FixNum] the index of the char in plaintext string
+  # @param [FixNum] the seed used in the encryption process
   # @return [String] the string of the encrypted char
   def encrypt_char(char, i, seed)
     sprintf("%02X", char.unpack('C')[0] ^ VT_TABLE[(i + seed) % 53])
@@ -76,6 +83,9 @@ class C7Decrypt
 
   # A helper method to decrypt an arracy of Cisco Type-7 Encrypted Strings
   # @param [Array>String] an array of Cisco Type-7 Encrypted Strings
+  # @raise [InvalidFirstCharacter, 
+  #         InvalidCharacter, 
+  #         OddNumberOfCharacters]
   # @return [Array>String] an array of Decrypted Strings
   def decrypt_array(pw_array)
     pw_array.collect {|pw| decrypt(pw)}
@@ -83,24 +93,82 @@ class C7Decrypt
 
   # A helper method to encrypt an arracy of passwords
   # @param [Array>String] an array of plain-text passwords
+  # @raise [InvalidEncryptionSeed,
+  #         InvalidFirstCharacter, 
+  #         InvalidCharacter, 
+  #         OddNumberOfCharacters]
   # @return [Array>String] an array of encrypted passwords
   def encrypt_array(pt_array, seed = 2)
     pt_array.collect {|pw| encrypt(pw, seed)}
   end
 
-  # This method scans a raw config file for type 7 passwords and decrypts them
-  # @param [String] a string of the config file path that contains Cisco Type-7 Encrypted Strings
+  # This method scans a raw config file for type 7 passwords and 
+  #   decrypts them
+  # @param [String] a string of the config file path that contains
+  #   Cisco Type-7 Encrypted Strings
+  # @raise [InvalidFirstCharacter, 
+  #         InvalidCharacter, 
+  #         OddNumberOfCharacters]
   # @return [Array>String] an array of Decrypted Strings
   def decrypt_config(file)
     f = File.open(file, 'r').to_a
     decrypt_array(f.collect {|line| type_7_matches(line)}.flatten)
   end
 
-  # This method scans a config line for encrypted type-7 passwords and returns an array of results
+  # This method scans a config line for encrypted type-7 passwords and
+  #   returns an array of results
   # @param [String] a line with potential encrypted type-7 passwords
   # @return [Array>String] an array of Cisco type-7 encrypted Strings
   def type_7_matches(string)
     TYPE_7_REGEXES.collect {|regex| string.scan(regex)}.flatten.uniq
+  end
+
+  # This method determines if an encrypted hash is corrupted/invalid 
+  #   and throw a specific exeception
+  # @param [String] the Cisco Type-7 Encrypted String
+  # @raise [InvalidFirstCharacter, InvalidCharacter, OddNumberOfCharacters]
+  # @return [Nil]
+  def check_type_7_errors(e_text)
+    
+    valid_first_chars = (0..15).to_a.collect {|c| sprintf("%02d", c)}
+    first_char = e_text[0,2]
+
+    # Check for an invalid first character in the has
+    unless valid_first_chars.include? first_char
+      raise InvalidFirstCharacter, 
+        "'#{e_text}' hash contains an invalid first chracter (only '00' - '15' allowed)"
+    end
+
+    # Check for an invalid character in the hash
+    unless e_text.match(/^[A-Z0-9]+$/)
+      raise InvalidCharacter,
+        "'#{e_text}' hash contains an invalid character (only upper-alpha numeric allowed)"
+    end
+
+    # Check for an odd number of characters in the hash
+    unless e_text.size % 2 == 0
+      raise OddNumberOfCharacters,
+        "'#{e_text}' hash contains odd length of chars (only even number of chars allowed)"     
+    end
+
+    return nil
+
+  end
+
+  # This method determines if an encryption seed is valid or not
+  #   and throw a specific exeception
+  # @param [FixNum] the seed used in the encryption process
+  # @raise [InvalidEncryptionSeed] 
+  # @return [Nil]
+  def check_seed(seed)
+    if seed < 0 ||
+       seed > 15
+      
+      raise InvalidEncryptionSeed,
+        "'#{seed.to_s}' seed is not a valid seed (only 0 - 15 allowed)"
+    end
+
+    return nil
   end
 
   #Definition of short-hand methods for the lazy
