@@ -1,4 +1,4 @@
-require_relative 'exceptions'
+require 'c7decrypt/exceptions'
 
 class C7Decrypt
 
