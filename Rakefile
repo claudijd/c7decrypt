@@ -5,6 +5,7 @@ require 'rubygems/package_task'
 require 'rspec'
 require 'rspec/core'
 require 'rspec/core/rake_task'
+require 'C7Decrypt/version'
 
 $:.unshift  File.join(File.dirname(__FILE__), "lib")
 
@@ -20,18 +21,36 @@ end
 
 desc "Build the gem"
 task :build do
+  puts "[+] Building C7Decrypt version #{C7Decrypt::VERSION}"
   puts `gem build c7decrypt.gemspec`
 end
 
 desc "Publish the gem"
 task :publish do
+  puts "[+] Publishing C7Decrypt version #{C7Decrypt::VERSION}"  
   Dir.glob("*.gem").each { |f| puts `gem push #{f}`} 
+end
+
+desc "Tag the release"
+task :tag do
+  puts "[+] Tagging C7Decrypt version #{C7Decrypt::VERSION}"  
+  `git tag #{C7Decrypt::VERSION}`
+  `git push --tags`
+end
+
+desc "Bump the Gemspec Version"
+task :bump do
+  puts "[+] Bumping C7Decrypt version #{C7Decrypt::VERSION}"
+  `git commit -a -m "Bumped Gem version to #{C7Decrypt::VERSION}"`
+  `git push origin master`
 end
 
 desc "Perform an end-to-end release of the gem"
 task :release do
   clean_up() # Clean up before we start
   Rake::Task[:build].execute
+  Rake::Task[:bump].execute
+  Rake::Task[:tag].execute
   Rake::Task[:publish].execute
   clean_up() # Clean up after we complete
 end
