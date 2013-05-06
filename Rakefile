@@ -5,9 +5,10 @@ require 'rubygems/package_task'
 require 'rspec'
 require 'rspec/core'
 require 'rspec/core/rake_task'
-require 'C7Decrypt/version'
 
-$:.unshift  File.join(File.dirname(__FILE__), "lib")
+$:.unshift File.join(File.dirname(__FILE__), "lib")
+
+require 'c7decrypt'
 
 task :default => :spec
 
