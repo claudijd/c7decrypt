@@ -1,3 +1,4 @@
+$: << "lib"
 require 'c7decrypt/version'
 
 Gem::Specification.new do |s|
