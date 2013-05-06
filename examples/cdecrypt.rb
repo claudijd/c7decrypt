@@ -28,14 +28,12 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-c7d = C7Decrypt.new()
-
 if options.string
-  puts c7d.decrypt(options.string)  
+  puts C7Decrypt.decrypt(options.string)  
 end
 
 if options.file &&
    File.exists?(options.file)
 
-  c7d.decrypt_config(options.file).each {|pw| puts pw }
+  C7Decrypt.decrypt_config(options.file).each {|pw| puts pw }
 end
