@@ -1,6 +1,8 @@
+require 'c7decrypt/version'
+
 Gem::Specification.new do |s|
   s.name = 'c7decrypt'
-  s.version = '0.1.10'
+  s.version = C7Decrypt::Version
   s.authors = ["Jonathan Claudius"]
   s.date = Date.today.to_s 
   s.email = 'claudijd@yahoo.com'
