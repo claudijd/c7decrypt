@@ -32,7 +32,7 @@ require 'c7decrypt'
 
 ## Example Usage(s)
 
-Decrypt A Single Encrypted Passwords
+Decrypt A Single Encrypted Password
 
 ```ruby
 >> C7Decrypt.decrypt("060506324F41")
