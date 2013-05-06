@@ -92,10 +92,16 @@ This project is integrated with [travis-ci](http://about.travis-ci.org/) and is 
 * [2.0.0](https://github.com/ruby/ruby/tree/ruby_2_0_0)
 * [1.9.3](https://github.com/ruby/ruby/tree/ruby_1_9_3)
 * [1.9.2](https://github.com/ruby/ruby/tree/ruby_1_9_2)
+* 1.9.1 - Tested outside of Travis-CI
+* [1.8.7](https://github.com/ruby/ruby/tree/ruby_1_8_7)
+* 1.8.6 - Tested outside of Travis-CI
 * [ruby-head](https://github.com/ruby/ruby)
 * [jruby-head](http://jruby.org/)
 * [jruby-19mode](http://jruby.org/)
+* [jruby-18mode](http://jruby.org/)
 * [rbx-19mode](http://rubini.us/)
+* [rbx-18mode](http://rubini.us/)
+* [ree](http://www.rubyenterpriseedition.com/)
 
 To checkout the current build status for these rubies, click [here](https://travis-ci.org/#!/claudijd/c7decrypt).
 
