@@ -8,7 +8,18 @@ Gem::Specification.new do |s|
   s.date = Date.today.to_s 
   s.email = 'claudijd@yahoo.com'
   s.platform = Gem::Platform::RUBY
-  s.files = ["lib/c7decrypt.rb"]
+  s.files = Dir.glob("lib/**/*") + 
+            Dir.glob("spec/**/*") + 
+            Dir.glob("examples/**/*") +
+            [".gitignore", 
+             ".rspec",
+             ".travis.yml",
+             "CONTRIBUTING.md",
+             "Gemfile",
+             "LICENSE",
+             "README.md",
+             "Rakefile",
+             "c7decrypt.gemspec"]
   s.require_paths = ["lib"]
   s.summary = 'Ruby based Cisco Type 7 Password Decryptor'
   s.description = 'A library for decoding Cisco Type 7 passwords'  
