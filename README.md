@@ -28,13 +28,13 @@ gem install c7decrypt
 
 Run `c7decrypt -h` to get this
 
-`Usage: c7decrypt.rb [options] [hash/file]
+```Usage: c7decrypt [option] [hash/file]
     -s, --string [HASH]              A single encrypted hash string
     -f, --file [FILE]                A file containing multiple hashes
     -h, --help                       Show this message
 
-Example: ruby cdecrypt.rb -s 04480E051A33490E
-Example: ruby cdecrypt.rb -f ../spec/example_configs/simple_canned_example.txt`
+Example: c7decrypt -s 04480E051A33490E
+Example: c7decrypt -f config.txt```
 
 ## Example Library Usage(s)
 
