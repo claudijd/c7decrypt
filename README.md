@@ -24,13 +24,25 @@ To install, type
 gem install c7decrypt
 ```
 
+## Example Command-Line Usage
+
+Run `c7decrypt -h` to get this
+
+`Usage: c7decrypt.rb [options] [hash/file]
+    -s, --string [HASH]              A single encrypted hash string
+    -f, --file [FILE]                A file containing multiple hashes
+    -h, --help                       Show this message
+
+Example: ruby cdecrypt.rb -s 04480E051A33490E
+Example: ruby cdecrypt.rb -f ../spec/example_configs/simple_canned_example.txt`
+
+## Example Library Usage(s)
+
 To use, just require
 
 ```ruby
 require 'c7decrypt'
 ```
-
-## Example Usage(s)
 
 Decrypt A Single Encrypted Password
 

@@ -12,7 +12,7 @@ options.string = nil
 options.file = nil
 
 opt_parser = OptionParser.new do |opts|
-  opts.banner = "Usage: cdecrypt.rb [options] [hash/file]"
+  opts.banner = "Usage: c7decrypt [option] [hash/file]"
 
   opts.on("-s", "--string [HASH]", "A single encrypted hash string") do |v|
     options.string = v
@@ -26,8 +26,8 @@ opt_parser = OptionParser.new do |opts|
     puts ""
     puts opts
     puts ""
-    puts "Example: ruby cdecrypt.rb -s 04480E051A33490E"
-    puts "Example: ruby cdecrypt.rb -f ../spec/example_configs/simple_canned_example.txt"
+    puts "Example: c7decrypt -s 04480E051A33490E"
+    puts "Example: c7decrypt -f config.txt"
     puts ""
     exit
   end
@@ -41,8 +41,8 @@ if options.string.nil? &&
   puts ""
   puts opt_parser
   puts ""
-  puts "Example: ruby cdecrypt.rb -s 04480E051A33490E"
-  puts "Example: ruby cdecrypt.rb -f ../spec/example_configs/simple_canned_example.txt"
+  puts "Example: c7decrypt -s 04480E051A33490E"
+  puts "Example: c7decrypt -f config.txt"
   puts ""
   exit
 end
