@@ -1,12 +1,17 @@
-require '../lib/c7decrypt'
+#!/usr/bin/env ruby
+
 require 'optparse'
 require 'ostruct'
+
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+require 'c7decrypt'
 
 options = OpenStruct.new
 options.string = nil
 options.file = nil
 
-OptionParser.new do |opts|
+opt_parser = OptionParser.new do |opts|
   opts.banner = "Usage: cdecrypt.rb [options] [hash/file]"
 
   opts.on("-s", "--string [HASH]", "A single encrypted hash string") do |v|
@@ -26,7 +31,21 @@ OptionParser.new do |opts|
     puts ""
     exit
   end
-end.parse!
+end
+
+opt_parser.parse!
+
+if options.string.nil? &&
+   options.file.nil?
+
+  puts ""
+  puts opt_parser
+  puts ""
+  puts "Example: ruby cdecrypt.rb -s 04480E051A33490E"
+  puts "Example: ruby cdecrypt.rb -f ../spec/example_configs/simple_canned_example.txt"
+  puts ""
+  exit
+end
 
 if options.string
   puts C7Decrypt.decrypt(options.string)  
