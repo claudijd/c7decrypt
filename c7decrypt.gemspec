@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.files = Dir.glob("lib/**/*") + 
             Dir.glob("spec/**/*") + 
-            Dir.glob("examples/**/*") +
+            Dir.glob("bin/**/*") +
             [".gitignore", 
              ".rspec",
              ".travis.yml",
@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
              "Rakefile",
              "c7decrypt.gemspec"]
   s.require_paths = ["lib"]
+  s.executables   = s.files.grep(%r{^bin/[^\/]+$}) { |f| File.basename(f) }
   s.summary = 'Ruby based Cisco Type 7 Password Decryptor'
   s.description = 'A library for decoding Cisco Type 7 passwords'  
   s.homepage = 'http://rubygems.org/gems/c7decrypt'
