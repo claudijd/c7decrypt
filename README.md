@@ -92,8 +92,6 @@ This project is integrated with [travis-ci](http://about.travis-ci.org/) and is 
 * [jruby-head](http://jruby.org/)
 * [jruby-19mode](http://jruby.org/)
 * [jruby-18mode](http://jruby.org/)
-* [rbx-19mode](http://rubini.us/)
-* [rbx-18mode](http://rubini.us/)
 * [ree](http://www.rubyenterpriseedition.com/)
 
 To checkout the current build status for these rubies, click [here](https://travis-ci.org/#!/claudijd/c7decrypt).
