@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'c7decrypt'
 
 describe C7Decrypt do

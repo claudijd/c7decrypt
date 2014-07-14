@@ -27,6 +27,6 @@ Gem::Specification.new do |s|
   s.homepage = 'http://rubygems.org/gems/c7decrypt'
 
   s.add_development_dependency('fuzzbert')
-  s.add_development_dependency('rspec')
+  s.add_development_dependency('rspec', '~> 2.14.1')
   s.add_development_dependency('rake')
 end
