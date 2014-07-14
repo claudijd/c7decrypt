@@ -25,4 +25,8 @@ Gem::Specification.new do |s|
   s.summary = 'Ruby based Cisco Type 7 Password Decryptor'
   s.description = 'A library for decoding Cisco Type 7 passwords'  
   s.homepage = 'http://rubygems.org/gems/c7decrypt'
+
+  s.add_development_dependency('fuzzbert')
+  s.add_development_dependency('rspec')
+  s.add_development_dependency('rake')
 end

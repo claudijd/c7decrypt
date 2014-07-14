@@ -20,6 +20,13 @@ def clean_up
   Dir.glob("*.lock").each { |f| File.unlink(f) }  
 end
 
+desc "Fuzz C7Decrypt"
+task :fuzz do
+  puts "[+] Fuzzing C7Decrypt"
+  puts `mkdir bugs` unless File.directory?("bugs")
+  puts `fuzzbert --bug-dir bugs --limit 10000000 "fuzz/fuzz_**.rb"`
+end
+
 desc "Build the gem"
 task :build do
   puts "[+] Building C7Decrypt version #{C7Decrypt::VERSION}"
