@@ -47,7 +47,7 @@ require 'c7decrypt'
 Decrypt A Single Encrypted Password
 
 ```ruby
->> C7Decrypt.decrypt("060506324F41")
+>> C7Decrypt::Type7.decrypt("060506324F41")
 => "cisco"
 ```
 
@@ -56,28 +56,28 @@ Decrypt Array of Encrypted Passwords
 ```ruby
 >> encrypted_hashes = ["060506324F41", "0822455D0A16"]
 => ["060506324F41", "0822455D0A16"]
->> C7Decrypt.decrypt_array(encrypted_hashes)
+>> C7Decrypt::Type7.decrypt_array(encrypted_hashes)
 => ["cisco", "cisco"]
 ```
 
 Decrypt Encrypted Passwords from Config
 
 ```ruby
->> C7Decrypt.decrypt_config("cisco_config.txt")
+>> C7Decrypt::Type7.decrypt_config("cisco_config.txt")
 => ["cisco", "Password1", "admin"]
 ```
 
 Encrypt A Single Plaintext Password
 
 ```ruby
->> C7Decrypt.encrypt("cisco")
+>> C7Decrypt::Type7.encrypt("cisco")
 => "02050D480809"
 ```
 
 Encrypt A Single Plaintext Password w/ Explicit Seed
 
 ```ruby
->> C7Decrypt.encrypt("cisco", 6)
+>> C7Decrypt::Type7.encrypt("cisco", 6)
 => "060506324F41"
 ```
 
@@ -86,7 +86,7 @@ Encrypt An Array of Plaintext Passwords
 ```ruby
 >> passwords = ["cisco", "password"]
 => ["cisco", "password"]
->> C7Decrypt.encrypt_array(passwords)
+>> C7Decrypt::Type7.encrypt_array(passwords)
 => ["02050D480809", "021605481811003348"]
 ```
 
