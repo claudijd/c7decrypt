@@ -1,6 +1,7 @@
 require 'c7decrypt'
+require 'rspec/its'
 
-describe C7Decrypt do
+describe C7Decrypt::Type7 do
 
   before(:each) do
     @known_values = [
@@ -20,7 +21,7 @@ describe C7Decrypt do
   context "when decrypting single Cisco Type-7 hash using longhand" do 
     before(:each) do
       @encrypted_hash = "060506324F41"
-      @decrypted_hash = C7Decrypt.decrypt(@encrypted_hash)
+      @decrypted_hash = C7Decrypt::Type7.decrypt(@encrypted_hash)
     end
   
     subject{@decrypted_hash}
@@ -34,7 +35,7 @@ describe C7Decrypt do
         "060506324F41",
         "0822455D0A16"
       ]
-      @decrypted_hashes = C7Decrypt.decrypt_array(@encrypted_hashes)
+      @decrypted_hashes = C7Decrypt::Type7.decrypt_array(@encrypted_hashes)
     end
   
     subject{@decrypted_hashes}
@@ -47,7 +48,7 @@ describe C7Decrypt do
   context "when decrypting Cisco Type-7 hashes from a config" do 
     before(:each) do
       @config_file = "./spec/example_configs/simple_canned_example.txt"
-      @decrypted_hashes = C7Decrypt.decrypt_config(@config_file)
+      @decrypted_hashes = C7Decrypt::Type7.decrypt_config(@config_file)
     end
   
     subject{@decrypted_hashes}
@@ -64,7 +65,7 @@ describe C7Decrypt do
 
   context "when decrypting known Cisco Type-7 known value matches" do 
     before(:each) do
-      @decrypted_hashes = C7Decrypt.decrypt_array(
+      @decrypted_hashes = C7Decrypt::Type7.decrypt_array(
                             @known_values.map {|known_value| known_value[:ph]}
                           )
     end
@@ -77,7 +78,7 @@ describe C7Decrypt do
 
   context "when decrypting Cisco Type-7 with a seed greater than 9" do 
     before(:each) do
-      @decrypt_hash = C7Decrypt.decrypt("15000E010723382727")
+      @decrypt_hash = C7Decrypt::Type7.decrypt("15000E010723382727")
     end
 
     subject{@decrypt_hash}
@@ -95,7 +96,7 @@ describe C7Decrypt do
       }
 
       @known_config_lines.keys.each do |k,v|
-        @encrypted_hashes << C7Decrypt.type_7_matches(k)
+        @encrypted_hashes << C7Decrypt::Type7.type_7_matches(k)
       end
       @encrypted_hashes.flatten!
     end
@@ -109,7 +110,7 @@ describe C7Decrypt do
   context "when encrypting single Cisco Type-7 hash" do 
     before(:each) do
       @plaintext_hash = "cisco"
-      @encrypted_hash = C7Decrypt.encrypt(@plaintext_hash)
+      @encrypted_hash = C7Decrypt::Type7.encrypt(@plaintext_hash)
     end
 
     subject{@encrypted_hash}
@@ -121,7 +122,7 @@ describe C7Decrypt do
     before(:each) do
       @plaintext_hash = "cisco"
       @seed = 3
-      @encrypted_hash = C7Decrypt.encrypt(@plaintext_hash, @seed)
+      @encrypted_hash = C7Decrypt::Type7.encrypt(@plaintext_hash, @seed)
     end
 
     subject{@encrypted_hash}
@@ -129,7 +130,7 @@ describe C7Decrypt do
     it {should == "030752180500"}
 
     it "should decrypt back to the original plaintext hash" do
-      C7Decrypt.decrypt(@encrypted_hash).should == @plaintext_hash
+      C7Decrypt::Type7.decrypt(@encrypted_hash).should == @plaintext_hash
     end
   end
 
@@ -137,7 +138,7 @@ describe C7Decrypt do
     before(:each) do
       @plaintext_hash = "cisco"
       @seeds = 0..15
-      @encrypted_hashes = @seeds.map {|seed| C7Decrypt.encrypt(@plaintext_hash, seed)}
+      @encrypted_hashes = @seeds.map {|seed| C7Decrypt::Type7.encrypt(@plaintext_hash, seed)}
     end
 
     subject{@encrypted_hashes}
@@ -145,7 +146,7 @@ describe C7Decrypt do
 
     it "should decrypt back to the original plaintext hashes" do
       @encrypted_hashes.each do |encrypted_hash|
-        C7Decrypt.decrypt(encrypted_hash).should == @plaintext_hash
+        C7Decrypt::Type7.decrypt(encrypted_hash).should == @plaintext_hash
       end
     end
   end
@@ -154,7 +155,7 @@ describe C7Decrypt do
     before(:each) do
       @encrypted_hashes = []
       @known_values.each do |known_value|
-        @encrypted_hashes << C7Decrypt.encrypt(known_value[:pt], known_value[:seed])
+        @encrypted_hashes << C7Decrypt::Type7.encrypt(known_value[:pt], known_value[:seed])
       end
     end
 
@@ -167,19 +168,19 @@ describe C7Decrypt do
   context "when encrypting known value matches individually as an array" do 
     before(:each) do
       @plaintext_passwords = @known_values.map {|known_value| known_value[:pt]}.uniq
-      @encrypted_passwords = C7Decrypt.encrypt_array(@plaintext_passwords)
+      @encrypted_passwords = C7Decrypt::Type7.encrypt_array(@plaintext_passwords)
     end
 
     subject{@encrypted_passwords}
     its(:class) {should == ::Array}
     its(:size) {should == @plaintext_passwords.size}
-    it {should == @plaintext_passwords.map {|plaintext_password| C7Decrypt.encrypt(plaintext_password)}}
+    it {should == @plaintext_passwords.map {|plaintext_password| C7Decrypt::Type7.encrypt(plaintext_password)}}
   end
 
   context "when encrypting Cisco Type-7" do 
     before(:each) do
       @plaintext_hash = "remcisco"
-      @encrypted_hash = C7Decrypt.encrypt(@plaintext_hash)
+      @encrypted_hash = C7Decrypt::Type7.encrypt(@plaintext_hash)
     end
 
     subject{@encrypted_hash}
@@ -191,7 +192,7 @@ describe C7Decrypt do
     before(:each) do
       @plaintext_hash = "remcisco"
       @seed = 15
-      @encrypted_hash = C7Decrypt.encrypt(@plaintext_hash, @seed)
+      @encrypted_hash = C7Decrypt::Type7.encrypt(@plaintext_hash, @seed)
     end
 
     subject{@encrypted_hash}
@@ -201,31 +202,41 @@ describe C7Decrypt do
 
   context "when trying to decrypt a hash with an invalid first character" do
     it "should raise an InvalidFirstCharacter Exception" do
-      expect { C7Decrypt.decrypt("AA000E010723382727") }.to raise_error(C7Decrypt::InvalidFirstCharacter)
+      expect {
+        C7Decrypt::Type7.decrypt("AA000E010723382727")
+      }.to raise_error(C7Decrypt::Type7::InvalidFirstCharacter)
     end
   end
 
   context "when trying to decrypt a hash with an invalid character" do
     it "should raise an InvalidFirstCharacter Exception" do
-      expect { C7Decrypt.decrypt("06000**E010723382727") }.to raise_error(C7Decrypt::InvalidCharacter)
+      expect { 
+        C7Decrypt::Type7.decrypt("06000**E010723382727")
+      }.to raise_error(C7Decrypt::Type7::InvalidCharacter)
     end
   end
   
   context "when trying to decrypt a hash with an odd number of characters" do
     it "should raise an InvalidFirstCharacter Exception" do
-      expect { C7Decrypt.decrypt("06000E01723382727") }.to raise_error(C7Decrypt::OddNumberOfCharacters)
+      expect {
+        C7Decrypt::Type7.decrypt("06000E01723382727")
+      }.to raise_error(C7Decrypt::Type7::OddNumberOfCharacters)
     end
   end
 
   context "when trying to encrypt a hash with an invalid high encryption seed" do
     it "should raise an InvalidFirstCharacter Exception" do
-      expect { C7Decrypt.encrypt("bananas", 16) }.to raise_error(C7Decrypt::InvalidEncryptionSeed)
+      expect {
+        C7Decrypt::Type7.encrypt("bananas", 16)
+      }.to raise_error(C7Decrypt::Type7::InvalidEncryptionSeed)
     end
   end
 
   context "when trying to encrypt a hash with an invalid low encryption seed" do
     it "should raise an InvalidFirstCharacter Exception" do
-      expect { C7Decrypt.encrypt("bananas", -1) }.to raise_error(C7Decrypt::InvalidEncryptionSeed)
+      expect {
+        C7Decrypt::Type7.encrypt("bananas", -1)
+      }.to raise_error(C7Decrypt::Type7::InvalidEncryptionSeed)
     end
   end
 

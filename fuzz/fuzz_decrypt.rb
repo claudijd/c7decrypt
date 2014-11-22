@@ -3,10 +3,10 @@ require 'fuzzbert'
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'c7decrypt'
 
-fuzz "C7Decrypt.decrypt" do
+fuzz "C7Decrypt::Type7.decrypt" do
   deploy do |data|
     begin
-      C7Decrypt.decrypt(data)
+      C7Decrypt::Type7.decrypt(data)
     rescue StandardError
       #fine, we just want to capture crashes
     end
