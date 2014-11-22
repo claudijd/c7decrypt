@@ -48,11 +48,11 @@ if options.string.nil? &&
 end
 
 if options.string
-  puts C7Decrypt.decrypt(options.string)  
+  puts C7Decrypt::Type7.decrypt(options.string)  
 end
 
 if options.file &&
    File.exists?(options.file)
 
-  C7Decrypt.decrypt_config(options.file).each {|pw| puts pw }
+  C7Decrypt::Type7.decrypt_config(options.file).each {|pw| puts pw }
 end
