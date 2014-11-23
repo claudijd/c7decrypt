@@ -88,6 +88,7 @@ If you are interested in contributing to this project, please see [CONTRIBUTING.
 
 - [**Daren Matthew**](http://mccltd.net/blog/?p=1034) - For his blog post on the subject aggregating tools and sources that perform the decryption/decoding logic.
 - [**m00nie**](http://www.m00nie.com/2011/09/cisco-type-7-password-decryption-and-encryption-with-perl/) - For the blog post on the subject, the source code of type7tool.pl and it's encryption techniques.
+- [**Roger Nesbitt (mogest)**](https://github.com/mogest/unix-crypt) - For the unix-crypt Ruby library that demonstrates Unix MD5 hashing schemes.
 
 **Application(s) that use C7Decrypt**
 
