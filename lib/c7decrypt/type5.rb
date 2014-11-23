@@ -1,4 +1,5 @@
 require 'digest'
+require 'securerandom'
 
 module C7Decrypt
   module Type5
@@ -27,7 +28,7 @@ module C7Decrypt
     # @param [String] password
     # @param [String] salt
     # @return [String] formatted Type-5 hash
-    def self.encrypt(password, salt)
+    def self.encrypt(password, salt = generate_salt)
       password = password.encode("UTF-8")
       password.force_encoding("ASCII-8BIT")
 
@@ -80,6 +81,13 @@ module C7Decrypt
       remainder = 0 if remainder == 3
 
       return output[0..-1-remainder]
+    end
+
+    # Generates a random salt using the same character set as the base64 encoding
+    # used by the hash encoder.
+    # @return [String] salt
+    def self.generate_salt(size = 4)
+      SecureRandom.base64((size * 6 / 8.0).ceil).tr("+", ".")[0...size]
     end
 
   end
