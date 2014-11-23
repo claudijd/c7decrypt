@@ -22,8 +22,8 @@ Gem::Specification.new do |s|
              "c7decrypt.gemspec"]
   s.require_paths = ["lib"]
   s.executables   = s.files.grep(%r{^bin/[^\/]+$}) { |f| File.basename(f) }
-  s.summary = 'Ruby based Cisco Type 7 Password Decryptor'
-  s.description = 'A library for decoding Cisco Type 7 passwords'  
+  s.summary = 'Ruby based Cisco Password Encryptor/Decryptor'
+  s.description = 'A library for encrypting/decrypting Cisco passwords'  
   s.homepage = 'http://rubygems.org/gems/c7decrypt'
 
   s.add_development_dependency('fuzzbert')
