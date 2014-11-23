@@ -9,7 +9,6 @@ Gem::Specification.new do |s|
   s.email = 'claudijd@yahoo.com'
   s.platform = Gem::Platform::RUBY
   s.files = Dir.glob("lib/**/*") + 
-            Dir.glob("spec/**/*") + 
             Dir.glob("bin/**/*") +
             [".gitignore", 
              ".rspec",
