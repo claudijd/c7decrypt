@@ -44,20 +44,20 @@ To use, just require
 require 'c7decrypt'
 ```
 
-Decrypt A Cisco Type-7 Password
+Decrypt Cisco Type-7 Password
 
 ```ruby
 >> C7Decrypt::Type7.decrypt("060506324F41")
 => "cisco"
 ```
-Encrypt A Cisco Type-7 Password
+Encrypt Cisco Type-7 Password
 
 ```ruby
 >> C7Decrypt::Type7.encrypt("cisco")
 => "02050D480809"
 ```
 
-Encrypt A Cisco Type-5 Password
+Encrypt Cisco Type-5 Password
 
 ```ruby
 >> C7Decrypt::Type5.encrypt("cisco")
