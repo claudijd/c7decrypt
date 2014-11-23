@@ -57,7 +57,7 @@ Encrypt Cisco Type-7 Password
 => "02050D480809"
 ```
 
-Encrypt Cisco Type-5 Password
+Encrypt Cisco Type-5 Password (*NEW*)
 
 ```ruby
 >> C7Decrypt::Type5.encrypt("cisco")
