@@ -24,6 +24,8 @@ Gem::Specification.new do |s|
   s.summary = 'Ruby based Cisco Password Encryptor/Decryptor'
   s.description = 'A library for encrypting/decrypting Cisco passwords'  
   s.homepage = 'http://rubygems.org/gems/c7decrypt'
+  s.cert_chain  = ['certs/claudijd.pem']
+  s.signing_key = File.expand_path("~/.ssh/gem-private_key.pem") if $0 =~ /gem\z/
 
   s.add_development_dependency('fuzzbert')
   s.add_development_dependency('rspec', '~> 3.0.0')
