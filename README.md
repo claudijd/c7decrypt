@@ -24,6 +24,13 @@ To install, type
 gem install c7decrypt
 ```
 
+To install w/ "HighSecurity", type
+
+```bash
+gem cert --add <(curl -Ls https://raw.github.com/claudijd/c7decrypt/master/certs/claudijd.pem)
+gem install c7decrypt -P HighSecurity
+```
+
 ## Example Command-Line Usage
 
 Run `c7decrypt -h` to get this
