@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
              "README.md",
              "Rakefile",
              "c7decrypt.gemspec"]
+  s.license       = "ruby"
   s.require_paths = ["lib"]
   s.executables   = s.files.grep(%r{^bin/[^\/]+$}) { |f| File.basename(f) }
   s.summary = 'Ruby based Cisco Password Encryptor/Decryptor'
@@ -27,8 +28,8 @@ Gem::Specification.new do |s|
   s.cert_chain  = ['certs/claudijd.pem']
   s.signing_key = File.expand_path("~/.ssh/gem-private_key.pem") if $0 =~ /gem\z/
 
-  s.add_development_dependency('fuzzbert')
-  s.add_development_dependency('rspec', '~> 3.0.0')
-  s.add_development_dependency('rspec-its')
-  s.add_development_dependency('rake')
+  s.add_development_dependency('fuzzbert', '~> 1.0')
+  s.add_development_dependency('rspec', '~> 3.0')
+  s.add_development_dependency('rspec-its', '~> 1.2')
+  s.add_development_dependency('rake', '~> 10.3')
 end
