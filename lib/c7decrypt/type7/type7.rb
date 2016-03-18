@@ -48,9 +48,9 @@ module C7Decrypt
     # @param [String] the plaintext password
     # @param [String] the seed for the encryption used
     # @raise [Exceptions::InvalidEncryptionSeed,
-    #         InvalidFirstCharacter,
-    #         InvalidCharacter,
-    #         OddNumberOfCharacters]
+    #         Exceptions::InvalidFirstCharacter,
+    #         Exceptions::InvalidCharacter,
+    #         Exceptions::OddNumberOfCharacters]
     # @return [String] the encrypted password
     def self.encrypt(d_text, seed = 2)
       check_seed(seed)
@@ -86,9 +86,9 @@ module C7Decrypt
 
     # A helper method to decrypt an arracy of Cisco Type-7 Encrypted Strings
     # @param [Array>String] an array of Cisco Type-7 Encrypted Strings
-    # @raise [InvalidFirstCharacter,
-    #         InvalidCharacter,
-    #         OddNumberOfCharacters]
+    # @raise [Exceptions::InvalidFirstCharacter,
+    #         Exceptions::InvalidCharacter,
+    #         Exceptions::OddNumberOfCharacters]
     # @return [Array>String] an array of Decrypted Strings
     def self.decrypt_array(pw_array)
       pw_array.collect {|pw| decrypt(pw)}
@@ -96,10 +96,10 @@ module C7Decrypt
 
     # A helper method to encrypt an arracy of passwords
     # @param [Array>String] an array of plain-text passwords
-    # @raise [InvalidEncryptionSeed,
-    #         InvalidFirstCharacter,
-    #         InvalidCharacter,
-    #         OddNumberOfCharacters]
+    # @raise [Exceptions::InvalidEncryptionSeed,
+    #         Exceptions::InvalidFirstCharacter,
+    #         Exceptions::InvalidCharacter,
+    #         Exceptions::OddNumberOfCharacters]
     # @return [Array>String] an array of encrypted passwords
     def self.encrypt_array(pt_array, seed = 2)
       pt_array.collect {|pw| encrypt(pw, seed)}
@@ -109,9 +109,9 @@ module C7Decrypt
     #   decrypts them
     # @param [String] a string of the config file path that contains
     #   Cisco Type-7 Encrypted Strings
-    # @raise [InvalidFirstCharacter,
-    #         InvalidCharacter,
-    #         OddNumberOfCharacters]
+    # @raise [Exceptions::InvalidFirstCharacter,
+    #         Exceptions::InvalidCharacter,
+    #         Exceptions::OddNumberOfCharacters]
     # @return [Array>String] an array of Decrypted Strings
     def self.decrypt_config(file)
       f = File.open(file, 'r').to_a
@@ -163,7 +163,7 @@ module C7Decrypt
     # This method determines if an encryption seed is valid or not
     #   and throw a specific exeception
     # @param [FixNum] the seed used in the encryption process
-    # @raise [InvalidEncryptionSeed]
+    # @raise [Exceptions::InvalidEncryptionSeed]
     # @return [Nil]
     def self.check_seed(seed)
       if seed < 0 ||
