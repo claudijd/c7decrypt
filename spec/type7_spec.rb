@@ -206,7 +206,7 @@ describe C7Decrypt::Type7 do
     it "should raise an InvalidFirstCharacter Exception" do
       expect {
         C7Decrypt::Type7.decrypt("AA000E010723382727")
-      }.to raise_error(C7Decrypt::Type7::InvalidFirstCharacter)
+      }.to raise_error(C7Decrypt::Type7::Exceptions::InvalidFirstCharacter)
     end
   end
 
@@ -214,7 +214,7 @@ describe C7Decrypt::Type7 do
     it "should raise an InvalidFirstCharacter Exception" do
       expect {
         C7Decrypt::Type7.decrypt("06000**E010723382727")
-      }.to raise_error(C7Decrypt::Type7::InvalidCharacter)
+      }.to raise_error(C7Decrypt::Type7::Exceptions::InvalidCharacter)
     end
   end
 
@@ -222,7 +222,7 @@ describe C7Decrypt::Type7 do
     it "should raise an InvalidFirstCharacter Exception" do
       expect {
         C7Decrypt::Type7.decrypt("06000E01723382727")
-      }.to raise_error(C7Decrypt::Type7::OddNumberOfCharacters)
+      }.to raise_error(C7Decrypt::Type7::Exceptions::OddNumberOfCharacters)
     end
   end
 
@@ -230,7 +230,7 @@ describe C7Decrypt::Type7 do
     it "should raise an InvalidFirstCharacter Exception" do
       expect {
         C7Decrypt::Type7.encrypt("bananas", 16)
-      }.to raise_error(C7Decrypt::Type7::InvalidEncryptionSeed)
+      }.to raise_error(C7Decrypt::Type7::Exceptions::InvalidEncryptionSeed)
     end
   end
 
@@ -238,7 +238,7 @@ describe C7Decrypt::Type7 do
     it "should raise an InvalidFirstCharacter Exception" do
       expect {
         C7Decrypt::Type7.encrypt("bananas", -1)
-      }.to raise_error(C7Decrypt::Type7::InvalidEncryptionSeed)
+      }.to raise_error(C7Decrypt::Type7::Exceptions::InvalidEncryptionSeed)
     end
   end
 
