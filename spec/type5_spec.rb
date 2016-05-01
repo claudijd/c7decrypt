@@ -1,5 +1,6 @@
 require 'c7decrypt'
 require 'rspec/its'
+require 'spec_helper'
 
 describe C7Decrypt::Type5 do
 
