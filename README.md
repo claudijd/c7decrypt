@@ -3,7 +3,6 @@
 # C7Decrypt
 
 [![Build Status](https://secure.travis-ci.org/claudijd/c7decrypt.png)](http://travis-ci.org/claudijd/c7decrypt)
-[![Dependency Status](https://gemnasium.com/claudijd/c7decrypt.png)](https://gemnasium.com/claudijd/c7decrypt)
 [![Code Climate](https://codeclimate.com/github/claudijd/c7decrypt.png)](https://codeclimate.com/github/claudijd/c7decrypt)
 [![Coverage Status](https://coveralls.io/repos/github/claudijd/c7decrypt/badge.svg?branch=master)](https://coveralls.io/github/claudijd/c7decrypt?branch=master)
 
