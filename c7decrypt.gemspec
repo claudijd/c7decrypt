@@ -1,5 +1,6 @@
 $: << "lib"
 require 'c7decrypt/version'
+require 'date'
 
 Gem::Specification.new do |s|
   s.name = 'c7decrypt'
