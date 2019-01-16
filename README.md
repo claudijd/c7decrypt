@@ -73,15 +73,7 @@ Encrypt Cisco Type-5 Password
 
 ## Rubies Supported
 
-This project is integrated with [travis-ci](http://about.travis-ci.org/) and is regularly tested to work with the following rubies:
-
-* [2.1.3](https://github.com/ruby/ruby/tree/ruby_2_1)
-* [2.1.0](https://github.com/ruby/ruby/tree/ruby_2_1)
-* [2.0.0](https://github.com/ruby/ruby/tree/ruby_2_0_0)
-* [1.9.3](https://github.com/ruby/ruby/tree/ruby_1_9_3)
-* [ruby-head](https://github.com/ruby/ruby)
-* [jruby-head](http://jruby.org/)
-* [jruby-19mode](http://jruby.org/)
+This project is integrated with [travis-ci](http://about.travis-ci.org/) and is regularly tested to work with the rubies defined [here](https://github.com/claudijd/c7decrypt/blob/master/.travis.yml).
 
 To checkout the current build status for these rubies, click [here](https://travis-ci.org/#!/claudijd/c7decrypt).
 
