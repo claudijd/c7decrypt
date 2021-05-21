@@ -18,4 +18,4 @@ jobs:
     - name: Setup dependancies
       run: bundle install
     - name: Run unit tests
-      run: rspec
+      run: bundle exec rake
