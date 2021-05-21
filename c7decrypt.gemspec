@@ -5,7 +5,6 @@ Gem::Specification.new do |s|
   s.name = 'c7decrypt'
   s.version = C7Decrypt::VERSION
   s.authors = ["Jonathan Claudius"]
-  s.date = Date.today.to_s
   s.email = 'claudijd@yahoo.com'
   s.platform = Gem::Platform::RUBY
   s.files = Dir.glob("lib/**/*") +
